@@ -14,7 +14,7 @@ import {
 
 import { publicProvider } from "wagmi/providers/public";
 
-const walletConnectProjectId = "6cdf7c57d5bd02d4138b12590e7a4c93";
+const walletConnectProjectId = "b0a6b7ab02a4090553750BE07a5728a6";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [zora, zoraTestnet, optimism, optimismGoerli, base, baseGoerli],
@@ -22,7 +22,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 );
 
 const { wallets } = getDefaultWallets({
-  appName: "Influenpeer",
+  appName: "NFTV",
   chains,
   projectId: walletConnectProjectId,
 });
