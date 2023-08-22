@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useMemo, useCallback, useState, useEffect } from "react";
@@ -81,7 +81,7 @@ export default function Home() {
 
   // Drag and Drop file function
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    if (acceptedFiles && acceptedFiles.length > 0 && acceptedFiles?.[0]) {
+    if (acceptedFiles && acceptedFiles.length > 0 && acceptedFiles[0]) {
       setVideo(acceptedFiles[0]);
       setIsFileSelected(true);
     }
@@ -131,9 +131,9 @@ export default function Home() {
         : progress?.[0].phase === "waiting"
         ? "Waiting"
         : progress?.[0].phase === "uploading"
-        ? `Video Uploading: ${Math.round(progress?.[0]?.progress * 100)}%`
+        ? `Video Uploading: ${Math.round(progress[0].progress * 100)}%`
         : progress?.[0].phase === "processing"
-        ? `Video Processing: ${Math.round(progress?.[0].progress * 100)}%`
+        ? `Video Processing: ${Math.round(progress[0].progress * 100)}%`
         : null,
     [progress],
   );
@@ -185,7 +185,7 @@ export default function Home() {
   } = usePrepareContractWrite({
     // Address of the Zora Creator Proxy contract on the OP Superchain (OP Mainnet, Base, and Zora by now)
 
-    // @ts-ignore
+    // @ts-expect-error
     address: zoraNftCreatorV1Config.address[chainId],
     abi: zoraNftCreatorV1Config.abi,
     // Function on the contract
@@ -231,8 +231,8 @@ export default function Home() {
       createStatus === "loading" ||
       assetStatus === "loading" ||
       updateStatus === "loading" ||
-      (asset && asset?.status?.phase !== "ready") ||
-      (asset?.storage && asset?.storage?.status?.phase !== "ready") ||
+      (asset && asset.status?.phase !== "ready") ||
+      (asset?.storage && asset.storage.status?.phase !== "ready") ||
       isContractWriteLoading,
     [asset, assetStatus, updateStatus, isContractWriteLoading, createStatus],
   );
@@ -435,7 +435,7 @@ export default function Home() {
                               Complete creation process in your wallet.
                             </p>
                             <div className="border border-solid border-indigo-600 rounded-md p-6 mb-4 mt-5 lg:w-3/4 w-100">
-                              <Player playbackId={asset?.storage?.ipfs?.cid} />
+                              <Player playbackId={asset.storage.ipfs.cid} />
                             </div>
                             <div className="ml-6">
                               {contractWriteData?.hash && isSuccess ? (
@@ -445,7 +445,7 @@ export default function Home() {
                                   <button
                                     className="text-white border border-transparent hover:bg-indigo-800 rounded-lg px-5 py-3 bg-indigo-600 mr-5"
                                     onClick={() =>
-                                      setShowErrorMessage(!showErrorMessage)
+                                      { setShowErrorMessage(!showErrorMessage); }
                                     }
                                   >
                                     {showErrorMessage ? (
@@ -500,8 +500,8 @@ export default function Home() {
                                 <div className="border-b-2 border-indigo-600 mb-4"></div>
                                 Gateway URL:
                                 <br />
-                                <a href={asset?.storage?.ipfs?.gatewayUrl}>
-                                  {asset?.storage?.ipfs?.gatewayUrl}
+                                <a href={asset.storage.ipfs.gatewayUrl}>
+                                  {asset.storage.ipfs.gatewayUrl}
                                 </a>
                               </p>
                               {isSuccess && chainId === 8453 && (
@@ -600,7 +600,7 @@ export default function Home() {
                               required
                               placeholder="Type the name of your NFT collection here"
                               disabled={disabled}
-                              onChange={(e) => setAssetName(e.target.value)}
+                              onChange={(e) => { setAssetName(e.target.value); }}
                             />
                             <br />
                             <label htmlFor="asset-name" className="text-left">
@@ -617,7 +617,7 @@ export default function Home() {
                               required
                               placeholder="Type the symbol of your NFT collection here"
                               disabled={disabled}
-                              onChange={(e) => setSymbolName(e.target.value)}
+                              onChange={(e) => { setSymbolName(e.target.value); }}
                             />
                             <br />
                             <label htmlFor="description" className="text-left">
@@ -634,13 +634,13 @@ export default function Home() {
                               placeholder="Type a description of your NFT here"
                               disabled={disabled}
                               onChange={(e) =>
-                                setNftDescription(e.target.value)
+                                { setNftDescription(e.target.value); }
                               }
                             />
                             {/* Upload Asset */}
                             <div className="flex justify-start">
                               {asset?.status?.phase !== "ready" ||
-                              asset?.storage?.status?.phase !== "ready" ? (
+                              asset.storage?.status?.phase !== "ready" ? (
                                 <div>
                                   {!description ? (
                                     <button className="rounded-md p-3 bg-slate-800 px-3.5 py-2.5 text-sm font-semibold opacity-50 cursor-not-allowed">
@@ -827,14 +827,14 @@ export default function Home() {
               >
                 Zora
               </a>{" "}
-              for the{" "}
+              made with{" "}
               <a
-                href="https://ethglobal.com/events/superhack"
+                href="https://luvnft.com"
                 rel="noreferrer"
                 target="_blank"
                 className="underline hover:text-gray-900"
               >
-                Superhack at ETHGlobal
+                LUV NFT
               </a>
             </p>
           </div>
